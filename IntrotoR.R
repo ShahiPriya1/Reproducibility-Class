@@ -16,6 +16,3 @@ subset(Zdf,Zsquared>10 & Zsquared<100) # Subset dataframe for Zsquared > 10 and 
 Zdf[26,] # Subset dataframe to only include row 26
 
 Zdf[180, "Zsquared"]# Subset to only include Zsquared value in the 180th row
-
-
-
