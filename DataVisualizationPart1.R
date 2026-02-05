@@ -74,3 +74,7 @@ ggplot(bull.richness,aes(x=GrowthStage, y=richness, group= Fungicide, colour = F
   facet_wrap(~Treatment*Crop,scale= "free")
 
 
+
+
+
+
