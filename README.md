@@ -22,6 +22,7 @@ ggplot(mtcars, aes(x=wt, y=mpg)) +
   xlab("Weight(tons)") +
   ylab("Miles per gallon")
 
+#adding different colors in graph
 ggplot(mtcars, aes(x=wt, y=mpg)) +
   geom_smooth(method = lm, se = FALSE) +
   geom_point(aes(colour = hp)) +
@@ -29,30 +30,31 @@ ggplot(mtcars, aes(x=wt, y=mpg)) +
   ylab("Miles per gallon")+
   scale_color_gradient(low = "green", high="grey")
 
-
+#boxplot
 bull.richness <- read.csv("Bull_richness.csv")
 ggplot(bull.richness,aes(x=GrowthStage, y=richness, colour = Fungicide)) +
   geom_boxplot() +
   geom_point(position = position_jitterdodge())+
   scale_color_manual(values = c("orange","blue")) # to change color
   
-bull.richness <- read.csv("Bull_richness.csv") # Filling the color in boxplot
+# Filling the color in boxplot  
+bull.richness <- read.csv("Bull_richness.csv") 
 ggplot(bull.richness,aes(x=GrowthStage, y=richness, fill= Fungicide)) +
   geom_boxplot() +
   geom_point(position = position_jitterdodge())+
   scale_fill_manual(values = c("orange","blue"))
 
-#SE
+#Bars with SE
 ggplot(bull.richness,aes(x=GrowthStage, y=richness, fill= Fungicide)) +
   stat_summary(fun = mean, geom = "bar", position = "dodge")+
   stat_summary(fun.data = mean_se, geom = "errorbar", position = "dodge")
 
-#confidence limit
+#Bars with confidence limit
 ggplot(bull.richness,aes(x=GrowthStage, y=richness, fill= Fungicide)) +
   stat_summary(fun = mean, geom = "bar", position = "dodge")+
   stat_summary(fun.data = mean_cl_normal, geom = "errorbar", position = "dodge") 
 
-#
+# only SE
 ggplot(bull.richness,aes(x=GrowthStage, y=richness, fill= Fungicide)) +
   stat_summary(fun = mean, geom = "line", position = "dodge")+
   stat_summary(fun.data = mean_se, geom = "errorbar", position = "dodge") 
@@ -62,12 +64,15 @@ ggplot(bull.richness,aes(x=GrowthStage, y=richness, group= Fungicide, colour = F
   stat_summary(fun = mean, geom = "line")+
   stat_summary(fun.data = mean_se, geom = "errorbar") 
 
+ 
 #facetting
 ggplot(bull.richness,aes(x=GrowthStage, y=richness, group= Fungicide, colour = Fungicide)) +
   stat_summary(fun = mean, geom = "line")+
   stat_summary(fun.data = mean_se, geom = "errorbar") +
   facet_wrap(~Treatment*Crop)
+  
 
+# Facetting with free scales
 ggplot(bull.richness,aes(x=GrowthStage, y=richness, group= Fungicide, colour = Fungicide)) +
   stat_summary(fun = mean, geom = "line")+
   stat_summary(fun.data = mean_se, geom = "errorbar") +
