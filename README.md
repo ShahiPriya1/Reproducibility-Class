@@ -1,81 +1,32 @@
-install.packages("ggplot2")
-install.packages("tidyverse")
+## File tree
 
-library(tidyverse)
-mtcars
-#The line is in the top of the points
-ggplot(mtcars, aes(x=wt, y=mpg)) +
-  geom_point() +
-  geom_smooth(method = lm, se = FALSE)
- 
-#the points are on the top
-ggplot(mtcars, aes(x=wt, y=mpg, sizw+wr)) +
-  geom_smooth(method = lm, se = FALSE) +
-  geom_point() +
-  xlab("Weight(tons)") +
-  ylab("Miles per gallon")
-
-#Points acc to weight
-ggplot(mtcars, aes(x=wt, y=mpg)) +
-  geom_smooth(method = lm, se = FALSE) +
-  geom_point(aes(size = wt)) +
-  xlab("Weight(tons)") +
-  ylab("Miles per gallon")
-
-#adding different colors in graph
-ggplot(mtcars, aes(x=wt, y=mpg)) +
-  geom_smooth(method = lm, se = FALSE) +
-  geom_point(aes(colour = hp)) +
-  xlab("Weight(tons)") +
-  ylab("Miles per gallon")+
-  scale_color_gradient(low = "green", high="grey")
-
-#boxplot
-bull.richness <- read.csv("Bull_richness.csv")
-ggplot(bull.richness,aes(x=GrowthStage, y=richness, colour = Fungicide)) +
-  geom_boxplot() +
-  geom_point(position = position_jitterdodge())+
-  scale_color_manual(values = c("orange","blue")) # to change color
-  
-# Filling the color in boxplot  
-bull.richness <- read.csv("Bull_richness.csv") 
-ggplot(bull.richness,aes(x=GrowthStage, y=richness, fill= Fungicide)) +
-  geom_boxplot() +
-  geom_point(position = position_jitterdodge())+
-  scale_fill_manual(values = c("orange","blue"))
-
-#Bars with SE
-ggplot(bull.richness,aes(x=GrowthStage, y=richness, fill= Fungicide)) +
-  stat_summary(fun = mean, geom = "bar", position = "dodge")+
-  stat_summary(fun.data = mean_se, geom = "errorbar", position = "dodge")
-
-#Bars with confidence limit
-ggplot(bull.richness,aes(x=GrowthStage, y=richness, fill= Fungicide)) +
-  stat_summary(fun = mean, geom = "bar", position = "dodge")+
-  stat_summary(fun.data = mean_cl_normal, geom = "errorbar", position = "dodge") 
-
-# only SE
-ggplot(bull.richness,aes(x=GrowthStage, y=richness, fill= Fungicide)) +
-  stat_summary(fun = mean, geom = "line", position = "dodge")+
-  stat_summary(fun.data = mean_se, geom = "errorbar", position = "dodge") 
-
-#line with SE
-ggplot(bull.richness,aes(x=GrowthStage, y=richness, group= Fungicide, colour = Fungicide)) +
-  stat_summary(fun = mean, geom = "line")+
-  stat_summary(fun.data = mean_se, geom = "errorbar") 
-
- 
-#facetting
-ggplot(bull.richness,aes(x=GrowthStage, y=richness, group= Fungicide, colour = Fungicide)) +
-  stat_summary(fun = mean, geom = "line")+
-  stat_summary(fun.data = mean_se, geom = "errorbar") +
-  facet_wrap(~Treatment*Crop)
-  
-
-# Facetting with free scales
-ggplot(bull.richness,aes(x=GrowthStage, y=richness, group= Fungicide, colour = Fungicide)) +
-  stat_summary(fun = mean, geom = "line")+
-  stat_summary(fun.data = mean_se, geom = "errorbar") +
-  facet_wrap(~Treatment*Crop,scale= "free")
-
-
+```
+├── BacterialAlpha.csv
+├── Bull_richness.csv
+├── Coding Challenge 2 Data visualization copy.R
+├── Coding Challenge 2 Data visualization.R
+├── CodingChalleng3_AdvancedVis.docx
+├── CodingChallenge2_IntroDataVis.docx
+├── CodingChallenge2_IntroDataVis[80].docx
+├── Data Visualization Part 1.docx
+├── Data Visualization Part2 · ShahiPriya1:Reproducibility-Class@a035ad0.html
+├── Data visualization homework 2.R
+├── DataVisualizationPart1.R
+├── DataVisualizationPart2.R
+├── IntroR_assignment .docx
+├── IntrotoR.R
+├── MycotoxinData.csv
+├── Project Proposal.docx
+├── README.md
+├── Reproducibility-Class.Rproj
+├── Rmarkdown1.Rmd
+├── Rmarkdown1.html
+├── Rmarkdown1.md
+├── Rmarkdown1_files
+│   └── figure-gfm
+│       └── pressure-1.png
+├── Untitled.R
+├── codingchallenge2.R
+├── codingchallenge3.R
+└── diff_abund.csv
+```
