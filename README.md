@@ -2,38 +2,39 @@
 #File Tree_1
 ```
 ├── CodingChallenge
-│   ├── BacterialAlpha.csv
-│   ├── Bull_richness.csv
-│   ├── Coding Challenge 2 Data visualization.R
-│   ├── CodingChalleng3_AdvancedVis.docx
-│   ├── CodingChallenge2_IntroDataVis.docx
-│   ├── MycotoxinData.csv
-│   ├── codingchallenge2.R
-│   ├── codingchallenge3.R
-│   └── diff_abund.csv
-├── DataVisualizationPart1.R
-├── DataVisualizationPart2.R
+│   ├── Data
+│   │   ├── BacterialAlpha.csv
+│   │   ├── Bull_richness.csv
+│   │   ├── MycotoxinData.csv
+│   │   └── diff_abund.csv
+│   ├── Doc_File
+│   │   ├── CodingChalleng3_AdvancedVis.docx
+│   │   ├── CodingChallenge1.docx
+│   │   ├── CodingChallenge2_IntroDataVis.docx
+│   │   └── Project Proposal.docx
+│   ├── Md_File
+│   └── R_code
+│       ├── codingchallenge2.R
+│       └── codingchallenge3.R
 ├── Homework
-│   ├── BacterialAlpha.csv
-│   ├── Bull_richness.csv
-│   ├── Data Visualization Part 1.docx
-│   ├── Data visualization homework 2.R
-│   ├── DataVisualizationPart1.R
-│   ├── DataVisualizationPart2.R
-│   ├── DatavisualizationHW_2.md
-│   ├── IntroR_assignment .docx
-│   ├── IntrotoR.R
-│   ├── MycotoxinData.csv
-│   ├── Reproducibility-Class.Rproj
-│   ├── Rmarkdown1.HWRmd.Rmd
-│   ├── Rmarkdown_Homework.docx
-│   └── diff_abund.csv
-├── IntrotoR.R
-├── Project Proposal.docx
+│   ├── Data
+│   │   ├── BacterialAlpha.csv
+│   │   ├── Bull_richness.csv
+│   │   ├── MycotoxinData.csv
+│   │   └── diff_abund.csv
+│   ├── Doc_File
+│   │   ├── Datavisualization HW_1.docx
+│   │   └── Rmarkdown_Homework.docx
+│   ├── MD_File
+│   │   ├── DatavisualizationHW_2.md
+│   │   └── Rmarkdown1.HWRmd.Rmd
+│   └── R_code
+│       ├── DataVisualizationPart1.R
+│       ├── DataVisualizationPart2.R
+│       └── IntrotoR.R
 ├── README.md
 ├── Reproducibility-Class.Rproj
-├── Rmarkdown1.Rmd
-└── ~$dingChallenge2_IntroDataVis[80].docx
+└── Rmarkdown1.Rmd
 ```
   
   
