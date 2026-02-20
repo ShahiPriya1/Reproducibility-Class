@@ -36,6 +36,6 @@
 ├── Reproducibility-Class.Rproj
 └── Rmarkdown1.Rmd
 ```
-  
-  
+# DOI
+  [![DOI](https://zenodo.org/badge/1148360578.svg)](https://doi.org/10.5281/zenodo.18707018)
   
