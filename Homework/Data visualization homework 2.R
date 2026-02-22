@@ -97,7 +97,7 @@ water.imbibed.cor
 
 
 
-##Figure 2; significance levels added with Adobe or powerpoint #### 
+##Figure 2; significance levels added with Adobe or powerpoint #####
 
 install.packages(ggpubr)
 library(ggpubr)
