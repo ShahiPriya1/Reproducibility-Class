@@ -9,7 +9,7 @@ sample.data.bac$Crop <- factor(sample.data.bac$Crop, levels = c("Soil", "Cotton"
 
 str(sample.data.bac)
 
-####### Bacterial evenness; Figure 2a ########
+####### Bacterial evenness; Figure 2a #########
 bac.even <- ggplot(sample.data.bac, aes(x = Time_Point, y = even, color = Crop)) +  # Define aesthetics: x-axis as Time.Point, y-axis as even, and color by Crop
   geom_boxplot(position = position_dodge(0.85)) +  # Add boxplots with dodged positions to avoid overlap
   geom_point(position = position_jitterdodge(0.05)) +  # Add jittered points to show individual data points, avoiding overlap
