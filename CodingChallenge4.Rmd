@@ -1,0 +1,89 @@
+---
+title: "Codingchallenge4"
+author: "Priya Shahi"
+date: "2026-02-20"
+output: 
+  
+  word_document:
+  html_document:
+    toc: True 
+    toc_float: True
+  md_document:
+      variant: gfm
+  pdf_document:
+---
+# Question1
+
+*In the context of R Markdown , the YAML header appears at the top of the document, enclosed by --- lines, and it contains metadata about the document.*
+*Literate Programming(For eg. R Markdown) is  documentation and code live together in the same file, making it easy for others (and your future self!) to understand not just what the code does, but why it was written that way.*
+
+# Question2a
+-[PaperLink](https://apsjournals.apsnet.org/doi/10.1094/PDIS-06-21-1253-RE)
+
+
+# Question2b
+```{r load data}
+library(tidyverse)
+library(ggpubr) 
+mycotoxin = read.csv("MycotoxinData.csv", na.strings = "na")
+mycotoxin$Treatment <- as.factor(mycotoxin$Treatment) 
+mycotoxin$Cultivar <- as.factor(mycotoxin$Cultivar)  
+str(mycotoxin)
+
+```
+
+# Question2c
+```{r}
+cbbPalette <- c("#56B4E9", "#009E73")
+```
+
+# DON_PLOT1 
+```{r}
+Plot1 <- ggplot(mycotoxin, aes(x = Treatment, y = DON, fill = Cultivar)) + 
+  geom_boxplot(position = position_dodge(0.85)) + 
+  xlab("") +  
+  ylab("DON (ppm)") + 
+  geom_point(alpha = 0.6,pch = 21, color = "black") + 
+  scale_fill_manual(values = cbbPalette)+ 
+  facet_wrap(~Cultivar)+  
+  theme_classic() 
+Plot1
+```
+
+# Plot X15ADON
+```{r}
+Plot2 <- ggplot(mycotoxin, aes(x = Treatment, y = X15ADON, fill = Cultivar)) + 
+  geom_boxplot(position = position_dodge(0.85)) +  
+  xlab("") +  
+  ylab("15ADON") +  
+  geom_point(alpha = 0.6,pch = 21, color = "black") + 
+  scale_fill_manual(values = cbbPalette)+ 
+  facet_wrap(~Cultivar)+ 
+  theme_classic() 
+Plot2
+```
+
+# SeedMass
+```{r}
+#Plot 3
+
+Plot3<- ggplot(mycotoxin, aes(x = Treatment, y = MassperSeed_mg, fill = Cultivar)) + 
+geom_boxplot(position = position_dodge(0.85)) +  
+  xlab("") +  
+  ylab("Seed Mass (mg)") +  
+  geom_point(alpha = 0.6,pch = 21, color = "black") + 
+  scale_fill_manual(values = cbbPalette)+ 
+  facet_wrap(~Cultivar)+ 
+  theme_classic() 
+Plot3
+```
+
+
+# Question5 
+[README](README)
+
+
+
+
+
+

@@ -117,7 +117,3 @@ Plot3
     ## (`geom_point()`).
 
 ![](CodingChallenge4_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
-
-# Question5
-
-[README](README)
