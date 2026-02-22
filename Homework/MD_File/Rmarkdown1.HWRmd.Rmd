@@ -1,0 +1,52 @@
+---
+title: "Rmarkdown_1"
+author: "Priya Shahi"
+date: "2026-02-19"
+output:
+  word_document:
+  md_document:
+    variant: gfm
+  html_document:
+    toc: True 
+    toc_float: True
+  Pdf_document:
+---
+```{r Rcode_example, include=TRUE, echo=FALSE}
+#Rcode
+summary(mtcars)
+```
+
+# How to include figure
+
+```{r include figure, include=TRUE, echo=FALSE}
+library(ggplot2)
+data("mtcars")
+ggplot(mtcars, aes(x = wt, y = mpg))+
+  geom_point()
+```
+
+
+# First level header 
+*Priya Shahi* 
+
+## Second level header
+**Priya Shahi**
+
+### Third level header
+1. one item
+2. second item
+
+# Links
+[link to my github](https://github.com/ShahiPriya1/Reproducibility-Class.git)
+
+## Image
+![Whitefly](/Users/priyashahi/Desktop/Whitefly/WhiteFly-Figure-1.jpg)
+
+# Formatted table
+```{r, include=TRUE, echo=FALSE}
+library(knitr)
+kable(mtcars, digits=3, format= "markdown")
+```
+
+
+   
