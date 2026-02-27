@@ -3,14 +3,14 @@ title: "Codingchallenge4"
 author: "Priya Shahi"
 date: "2026-02-20"
 output: 
-  
-  word_document:
+  pdf_document:
+    toc: true
+    number_sections: true
+    toc_depth: 3
   html_document:
-    toc: True 
-    toc_float: True
   md_document:
       variant: gfm
-  pdf_document:
+  word_document:
 ---
 # Question1
 
@@ -37,7 +37,7 @@ str(mycotoxin)
 cbbPalette <- c("#56B4E9", "#009E73")
 ```
 
-# DON_PLOT1 
+## DON_PLOT1 
 ```{r}
 Plot1 <- ggplot(mycotoxin, aes(x = Treatment, y = DON, fill = Cultivar)) + 
   geom_boxplot(position = position_dodge(0.85)) + 
@@ -50,7 +50,7 @@ Plot1 <- ggplot(mycotoxin, aes(x = Treatment, y = DON, fill = Cultivar)) +
 Plot1
 ```
 
-# Plot X15ADON
+## Plot X15ADON
 ```{r}
 Plot2 <- ggplot(mycotoxin, aes(x = Treatment, y = X15ADON, fill = Cultivar)) + 
   geom_boxplot(position = position_dodge(0.85)) +  
@@ -63,7 +63,7 @@ Plot2 <- ggplot(mycotoxin, aes(x = Treatment, y = X15ADON, fill = Cultivar)) +
 Plot2
 ```
 
-# SeedMass
+## SeedMass
 ```{r}
 #Plot 3
 
@@ -78,9 +78,68 @@ geom_boxplot(position = position_dodge(0.85)) +
 Plot3
 ```
 
+# 3Combined_PLOT
+
+```{r}
+figure=ggarrange(
+  Plot1,
+  Plot2,
+  Plot3,
+  labels = c("A", "B", "C"),
+  nrow = 1,
+  ncol = 3,
+  common.legend=TRUE
+)
+
+figure
+```
+
+# Combined_with_pairwisecomparison
+```{r}
+## Plot 1: plot1 with pairwise comparisons 
+Plot1_pwc <- Plot1 +
+  geom_pwc(aes(group = Treatment), method = "t.test", label = "p.adj.format") +  # Add pairwise t-tests
+  theme_classic()
+
+Plot1_pwc
+
+
+##Plot 2: plot2 with pairwise comparisons
+Plot2_pwc <- Plot2 +
+  geom_pwc(aes(group=Treatment), method= "t.test", label= "p.adj.format")+
+  theme_classic()
+
+Plot2_pwc
+
+##Plot 3: plot3 with pairwise comparisons
+Plot3_pwc = Plot3 + geom_pwc(aes(group=Treatment), method="t.test", label="p.adj.format")+
+  theme_classic()
+
+Plot3_pwc
+
+#Combine all three plots with a common legend ----
+Combined_pwc =ggarrange(
+  Plot1_pwc,
+  Plot2_pwc,
+  Plot3_pwc,
+  labels = c("D", "E", "F"),
+  nrow = 1,
+  ncol = 3,
+  common.legend=TRUE
+)
+
+Combined_pwc
+
+```
+```
+
 
 # Question5 
 [README](README)
+
+# Question6
+[Github](https://github.com/ShahiPriya1/Reproducibility-Class/blob/main/CodingChallenge/CodingChallenge4.md)
+
 
 
 

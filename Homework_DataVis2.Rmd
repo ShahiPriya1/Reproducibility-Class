@@ -1,7 +1,26 @@
-install.packages("ggplot2")
+---
+title: "Homework_DataVis2"
+author: "Priya Shahi"
+date: "2026-02-26"
+output: 
+  md_document:
+      variant: gfm
+  html_document:
+  pdf_document:
+    toc: true
+    number_sections: true
+    toc_depth: 3
+  word_document:
+---
+# Figure2a
+```{r}
 library(ggplot2)
+library(ggpubr)
+library(ggrepel)
+library(tidyverse)
 
-sample.data.bac <- read.csv(file.choose(), na.strings = "na")
+cbbPalette <- c("#E69F00", "#56B4E9", "#009E73")
+sample.data.bac <- read.csv("BacterialAlpha.csv", na.strings = "na")
 head(sample.data.bac)
 sample.data.bac$Time_Point <- as.factor(sample.data.bac$Time_Point)
 sample.data.bac$Crop <- as.factor(sample.data.bac$Crop)
@@ -9,6 +28,8 @@ sample.data.bac$Crop <- factor(sample.data.bac$Crop, levels = c("Soil", "Cotton"
 
 str(sample.data.bac)
 
+```
+```{r}
 ####### Bacterial evenness; Figure 2a ########
 bac.even <- ggplot(sample.data.bac, aes(x = Time_Point, y = even, color = Crop)) +  # Define aesthetics: x-axis as Time.Point, y-axis as even, and color by Crop
   geom_boxplot(position = position_dodge(0.85)) +  # Add boxplots with dodged positions to avoid overlap
@@ -19,6 +40,11 @@ bac.even <- ggplot(sample.data.bac, aes(x = Time_Point, y = even, color = Crop))
   theme_classic()   # Use a classic theme for the plot
 bac.even
 
+```
+
+
+
+```{r}
 bac.even <- ggplot(sample.data.bac, 
                    aes(x = Time_Point, y = even, color = Crop)) +
   geom_boxplot(position = position_dodge(0.85)) +
@@ -34,9 +60,11 @@ bac.even <- ggplot(sample.data.bac,
   theme_classic()
 
 bac.even
+```
 
 
-
+# Figure2b
+```{r}
 ####### Water Imbibition correlate with bacterial evenness; Figure 2b #####
 
 sample.data.bac.nosoil <- subset(sample.data.bac, Crop != "Soil")
@@ -58,9 +86,11 @@ water.imbibed <- ggplot(sample.data.bac.nosoil,
   facet_wrap(~Crop, scales = "free")
 
 water.imbibed
+```
 
 
-
+# Figure2c
+```{r}
 ##### Figure 2c #####
 water.imbibed.cor <- ggplot(sample.data.bac.nosoil,
                             aes(x = 1000 * Water_Imbibed,
@@ -97,10 +127,15 @@ water.imbibed.cor
 
 
 
-##Figure 2; significance levels added with Adobe or powerpoint #### 
+```
 
-install.packages(ggpubr)
+```{r}
+
 library(ggpubr)
+```
+
+# Combine Figure2
+```{r}
 # Arrange multiple ggplot objects into a single figure
 figure2 <- ggarrange(
   water.imbibed,  # First plot: water.imbibed
@@ -115,27 +150,38 @@ figure2 <- ggarrange(
 figure2
 
 
+
+
+```
+
+
+# Signficance
+```{r}
 bac.even + 
   stat_compare_means(method = "anova") # apply an anova to the groups
-
-
-
 ### Example with pvalues as significance levels
 bac.even + 
   geom_pwc(aes(group = Crop), method = "t_test", label = "p.adj.format")
+```
 
-
-
+```{r}
 ### example with * as significance levels
 bac.even + 
   geom_pwc(aes(group = Crop), method = "t_test", label = "p.adj.signif")
 
+```
+
+
+```{r}
 
 ### Example with combined pvalue and * to indicate significance
 bac.even + 
   geom_pwc(aes(group = Crop), method = "t_test", label = "{p.adj.format}{p.adj.signif}")
 
+```
 
+
+```{r}
 water.imbibed.cor + 
   stat_cor()
 
@@ -144,14 +190,18 @@ water.imbibed.cor +
 water.imbibed.cor + 
   stat_cor(label.y = 0.7) +
   stat_regline_equation()
-##,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+```
 
-"C:\Users\gzb0078\Downloads\diff_abund.csv"
-diff.abund <- read.csv(file.choose())
+
+```{r}
+diff.abund <- read.csv("diff_abund.csv", na.strings = 'na')
 str(diff.abund)
 head(diff.abund)
+```
 
 
+# Make a volcano plot for Soybean vs. Soil
+```{r}
 #Make a volcano plot for Soybean vs. Soil
 
 diff.abund$log10_pvalue <- -log10(diff.abund$p_CropSoybean)
@@ -166,9 +216,11 @@ ggplot() +
   geom_text_repel(data = diff.abund.label, aes(x = lfc_CropSoybean, y = log10_pvalue, color = diff_CropSoybean, label = Label))
 
 
+```
 
-#Make the plot look nice with our colorblind friendly scheme and labeled x and y axes plus make the legend more easily understandable
 
+# Volcano 1
+```{r}
 volcano <- ggplot() + 
   geom_point(data = diff.abund, aes(x = lfc_CropSoybean, y = log10_pvalue, color = diff_CropSoybean)) + 
   geom_text_repel(data = diff.abund.label, aes(x = lfc_CropSoybean, y = log10_pvalue, color = diff_CropSoybean, label = Label)) + 
@@ -177,10 +229,13 @@ volcano <- ggplot() +
   xlab("Log fold change Soil vs. Soybean") +
   ylab("-log10 p-value")
 volcano
+```
 
 
-#We can use the same concept if we wanted to emphasize certain points as a different shape or color
 
+
+# Volcano 2
+```{r}
 volcano <- ggplot() + 
   geom_point(data = diff.abund, aes(x = lfc_CropSoybean, y = log10_pvalue)) + 
   geom_point(data = diff.abund.label, aes(x = lfc_CropSoybean, y = log10_pvalue), color = "red", shape = 17, size = 4) +
@@ -189,5 +244,12 @@ volcano <- ggplot() +
   xlab("Log fold change Soil vs. Soybean") +
   ylab("-log10 p-value")
 volcano
+
+```
+
+
+
+
+
 
 
