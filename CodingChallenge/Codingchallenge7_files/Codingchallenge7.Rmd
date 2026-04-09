@@ -1,0 +1,97 @@
+---
+title: "CodingChallenge7"
+author: "Priya Shahi"
+date: "2026-04-01"
+output: 
+  word_document:
+     toc: true 
+  md_document:
+    variant: gfm
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+# Question 1
+```{r CodingChallenege7}
+library(tidyverse)
+library(lme4)
+library(emmeans)
+library(multcomp)
+library(multcompView)
+```
+
+```{r}
+Plant <- read.csv("PlantEmergence.csv")
+Plant$Treatment <- as.factor(Plant$Treatment)
+Plant$DaysAfterPlanting <- as.factor(Plant$DaysAfterPlanting)
+Plant$Rep <- as.factor(Plant$Rep)
+```
+
+# Question 2
+```{r}
+model <- lm(Emergence~Treatment*DaysAfterPlanting, data = Plant)
+summary(model)
+anova(model)
+```
+
+# Question 3
+- No, we do not need to fit the interaction term.
+```{r}
+model_simple <- lm(Emergence ~ Treatment + DaysAfterPlanting, data = Plant)
+summary(model_simple)
+anova(model_simple)
+```
+Intercept (182.163),Treatment 2 Coefficient (−134.531)
+
+# Question 4
+```{r}
+lsmeans <- emmeans(model_simple, ~Treatment) #leastSquared means
+Results_lsmeans <- cld(lsmeans, alpha = 0.05, reversed = TRUE, details = TRUE)
+
+```
+Interpret:The least square means (LSMeans) and Tukey grouping show that Treatment 2 is significantly different from all other treatments.
+
+# Question 5
+```{r}
+plot_cldbars_onefactor <- function(lm_model, factor) {
+data <- lm_model$model
+variables <- colnames(lm_model$model)
+dependent_var <- variables[1]
+independent_var <- variables[2:length(variables)]
+lsmeans <- emmeans(lm_model, as.formula(paste("~", factor))) # estimate
+lsmeans
+Results_lsmeans <- cld(lsmeans, alpha = 0.05, reversed = TRUE, details =
+TRUE, Letters = letters) # contrast with Tukey adjustment by default.
+# Extracting the letters for the bars
+sig.diff.letters <- data.frame(Results_lsmeans$emmeans[,1],
+str_trim(Results_lsmeans$emmeans[,7]))
+colnames(sig.diff.letters) <- c(factor, "Letters")
+# for plotting with letters from significance test
+ave_stand2 <- lm_model$model %>%
+group_by(!!sym(factor)) %>%
+dplyr::summarize(
+ave.emerge = mean(.data[[dependent_var]], na.rm = TRUE),
+se = sd(.data[[dependent_var]]) / sqrt(n())
+) %>%
+left_join(sig.diff.letters, by = factor) %>%
+mutate(letter_position = ave.emerge + 10 * se)
+plot <- ggplot(data, aes(x = !! sym(factor), y = !! sym(dependent_var))) +
+stat_summary(fun = mean, geom = "bar") +
+stat_summary(fun.data = mean_se, geom = "errorbar", width = 0.5) +
+ylab("Number of emerged plants") +
+geom_jitter(width = 0.02, alpha = 0.5) +
+geom_text(data = ave_stand2, aes(label = Letters, y = letter_position),
+size = 5) +
+xlab(as.character(factor)) +
+theme_classic()
+return(plot)
+}
+plot_cldbars_onefactor(model_simple, "Treatment")
+```
+
+The intercept represents the mean emergence for the reference treatment at the reference day level, and the coefficient for Treatment 2 shows how much emergence differs from the reference treatment after adjusting for DaysAfterPlanting.
+
+# Question 6
+[Github](https://github.com/ShahiPriya1/Reproducibility-Class/blob/main/CodingChallenge/Md_File/Codingchallenge7.md) 
+
+
