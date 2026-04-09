@@ -1,0 +1,97 @@
+---
+title: "CodingChallenge6"
+author: "Priya Shahi"
+date: "2026-03-24"
+output:
+  pdf_document:
+    toc: true
+  md_document:
+    variant: gfm
+  html_document:
+    df_print: paged
+  word_document:
+---
+
+# Question 1 (Regarding Reproducibility)
+The main point of writing your own functions and using iterations is to make your analysis consistent, repeatable, and efficient. Functions allow you to reuse the same code without rewriting it, which reduces errors and ensures the same method is applied every time. Loops help automate repetitive tasks, making it easier to reproduce results on new or larger datasets.
+
+# Question 2 (Conceptual)
+1) Function in R:
+A function in R is created using the function() and assigned a name. Inputs are dfined in parentheses, and the code is written inside {}. It returns a result using return(). Functions are written in scripts or R Markdown to resue code.
+
+2) For loop in R:
+A for loop repeats code multiple times using for (i in ...), where i goes through a sequence. The code inside{} runs for each value of i. Results are usually stored in a variable that updates each iteration.
+
+# Question 3 (Load Data)
+```{r}
+Cities <-read.csv("Cities.csv")
+```
+
+# Question 4 (Function Writing)
+```{r}
+ Haversine<- function(lat1, lon1, lat2, lon2) {rad.lat1 <- lat1 * pi/180
+  rad.lon1 <- lon1 * pi/180
+  rad.lat2 <- lat2 * pi/180
+  rad.lon2 <- lon2 * pi/180
+  
+  # Haversine formula
+  delta_lat <- rad.lat2 - rad.lat1
+  delta_lon <- rad.lon2 - rad.lon1
+  a <- sin(delta_lat / 2)^2 + cos(rad.lat1) * cos(rad.lat2) * sin(delta_lon / 2)^2
+  c <- 2 * asin(sqrt(a))
+  
+  # Earth's radius in kilometers
+  earth_radius <- 6378137
+  
+  # Calculate the distance
+  distance_km <- (earth_radius * c) / 1000
+  
+  return(distance_km) 
+}
+colnames(Cities)
+```
+
+# Question 5
+```{r}
+auburn <- Cities$lat[Cities$city == "Auburn" ]
+auburn2 <- Cities$long[Cities$city == "Auburn" ]
+
+nyc <- Cities$lat[Cities$city == "New York"]
+nyc2 <- Cities$long[Cities$city == "New York"]
+
+# Calculate distance 
+ auburn_nyc_dist <- Haversine(auburn, auburn2, nyc, nyc2)
+
+auburn_nyc_dist
+```
+
+# Question 6 (Loop)
+```{r}
+for (i in 1:nrow(Cities)) {
+  
+  dist <- Haversine(auburn, auburn2,
+                    Cities$lat[i],
+                    Cities$long[i])
+  
+  print(dist)
+}
+```
+
+# Qusetion 7 (dataframe)
+```{r}
+distance_df <- NULL
+
+for (i in 1:nrow(Cities)) {
+    result_i <- data.frame(
+      City1 = Cities$city[i],
+      City2 = "Auburn",
+      Distance_km = Haversine(auburn, auburn2,
+                              Cities$lat[i],
+                              Cities$long[i]))
+    
+    distance_df <- rbind.data.frame(distance_df, result_i)
+}
+print(distance_df)
+```
+# Question 8 (Github)
+[CodingChallenge6](https://github.com/ShahiPriya1/Reproducibility-Class/commit/7919dfb344ed42a57b1759dbaa22ef9891600e44#diff-be73eee0d50cd54ea14f807e5d2bd81798b7b5a584dbc9fdaedb24bdcfe4a7da)
